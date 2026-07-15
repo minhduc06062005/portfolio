@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đoàn Minh Đức | E-commerce Portfolio</title>
+<!-- Chèn Google Font hiện đại -->
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    /* --- BẢNG MÀU RỰC RỠ & HIỆN ĐẠI --- */
+    :root {
+        --primary-green: #0a5c47;  /* Xanh lục bảo đậm đà của NEU */
+        --vibrant-teal: #0d9488;   /* Xanh ngọc rực rỡ */
+        --accent-orange: #f97316;  /* Cam neon năng động tạo điểm nhấn */
+        --bg-light: #f1f5f9;       /* Nền sáng xám xanh dịu mắt */
+        --text-dark: #0f172a;      /* Chữ chính */
+        --text-gray: #475569;      /* Chữ phụ */
+        --card-shadow: 0 10px 25px -5px rgba(10, 92, 71, 0.08), 0 8px 10px -6px rgba(10, 92, 71, 0.05);
+        --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Lexend', sans-serif; }
+    body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; scroll-behavior: smooth; }
+    a { text-decoration: none; transition: var(--transition-smooth); }
+
+    /* --- Navigation Bar --- */
+    header {
+        position: fixed; top: 0; width: 100%;
+        background: rgba(10, 92, 71, 0.95);
+        backdrop-filter: blur(8px);
+        color: white; padding: 18px 8%;
+        display: flex; justify-content: space-between; align-items: center;
+        z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    header .logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+    header .logo span { color: var(--accent-orange); }
+    header nav a { color: #f1f5f9; margin-left: 25px; font-weight: 500; font-size: 15px; }
+    header nav a:hover { color: var(--accent-orange); }
+
+    /* --- Layout Container --- */
+    .portfolio-container {
+        max-width: 1400px; margin: 120px auto 40px;
+        padding: 0 5%;
+        display: grid; grid-template-columns: 1.1fr 1.4fr;
+        gap: 35px; align-items: start;
+    }
+
+    @media (max-width: 1100px) {
+        .portfolio-container { grid-template-columns: 1fr; margin-top: 100px; }
+    }
+
+    /* Các cột chứa nội dung */
+    .column-left, .column-right { display: flex; flex-direction: column; gap: 30px; }
+
+    /* --- Giao diện các Card khối --- */
+    .card {
+        background: white; border-radius: 24px; padding: 35px;
+        box-shadow: var(--card-shadow); border: 1px solid rgba(255, 255, 255, 0.8);
+        position: relative; overflow: hidden;
+    }
+    
+    /* Trang trí góc card cho rực rỡ */
+    .card::before {
+        content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+        background: linear-gradient(90deg, var(--primary-green), var(--vibrant-teal), var(--accent-orange));
+    }
+
+    /* Tiêu đề mục */
+    h2.section-title {
+        font-size: 26px; font-weight: 800; color: var(--primary-green);
+        display: flex; align-items: center; gap: 10px; margin-bottom: 5px;
+    }
+
+    /* --- CỘT TRÁI (LEFT COLUMN) --- */
+    /* Hero Card */
+    .hero-card { text-align: center; }
+    .avatar-container {
+        width: 170px; height: 170px; margin: 10px auto 25px;
+        position: relative; border-radius: 50%;
+        background: linear-gradient(135deg, var(--vibrant-teal), var(--accent-orange));
+        padding: 5px; box-shadow: 0 10px 25px rgba(13, 148, 136, 0.3);
+    }
+    .avatar-container img {
+        width: 100%; height: 100%; border-radius: 50%;
+        object-fit: cover; background: #fff;
+    }
+    .hero-card h1 { font-size: 32px; font-weight: 800; color: var(--primary-green); line-height: 1.2; }
+    .hero-card h3 { font-size: 16px; font-weight: 600; color: var(--vibrant-teal); text-transform: uppercase; letter-spacing: 1px; margin: 8px 0 20px; }
+    
+    .btn-group { display: flex; gap: 15px; justify-content: center; margin-top: 10px; }
+    .btn {
+        padding: 12px 28px; border-radius: 30px; font-weight: 700; font-size: 14px;
+        display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary { background: var(--primary-green); color: white; }
+    .btn-primary:hover { background: #064031; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(10,92,71,0.25); }
+    .btn-secondary { background: white; color: var(--primary-green); border: 2px solid var(--primary-green); }
+    .btn-secondary:hover { background: #f1f5f9; transform: translateY(-3px); }
+
+    /* Stats Dashboard (2x2) */
+    .stats-dashboard { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    .stat-box {
+        background: white; padding: 22px; border-radius: 20px;
+        box-shadow: var(--card-shadow); border: 1px solid #f1f5f9;
+        text-align: center; transition: var(--transition-smooth);
+    }
+    .stat-box:hover { transform: translateY(-5px); border-color: var(--vibrant-teal); }
+    .stat-box .stat-icon { font-size: 28px; margin-bottom: 10px; }
+    .stat-box p { font-size: 12px; font-weight: 600; color: var(--text-gray); text-transform: uppercase; }
+    .stat-box .stat-value { font-size: 32px; font-weight: 800; margin-top: 5px; }
+    .stat-box.stat-gpa .stat-value { color: var(--primary-green); }
+    .stat-box.stat-shop .stat-value { color: var(--vibrant-teal); }
+    .stat-box.stat-revenue .stat-value { color: var(--accent-orange); }
+    .stat-box.stat-roas .stat-value { color: #10b981; }
+
+    /* Mục tiêu nghề nghiệp */
+    .objective-list h4 { color: var(--primary-green); font-size: 16px; margin: 15px 0 8px; font-weight: 700; }
+    .objective-list ul li {
+        list-style: none; position: relative; padding-left: 20px;
+        font-size: 14px; color: var(--text-gray); margin-bottom: 8px;
+    }
+    .objective-list ul li::before {
+        content: "✦"; color: var(--accent-orange); position: absolute; left: 0; font-size: 12px;
+    }
+
+    /* Hoạt động & Giải thưởng */
+    .activity-block { display: flex; flex-direction: column; gap: 10px; margin-bottom: 25px; }
+    .activity-block:last-child { margin-bottom: 0; }
+    .activity-item { display: flex; gap: 15px; align-items: flex-start; }
+    .activity-badge {
+        font-size: 22px; background: rgba(249, 115, 22, 0.1);
+        padding: 8px; border-radius: 12px; line-height: 1;
+    }
+    .activity-info h4 { font-size: 15px; font-weight: 700; color: var(--text-dark); }
+    .activity-info p { font-size: 13px; color: var(--text-gray); margin-top: 2px; }
+
+    /* --- CỘT PHẢI (RIGHT COLUMN) --- */
+    /* Kinh nghiệm làm việc */
+    .timeline { display: flex; flex-direction: column; gap: 25px; }
+    .timeline-item { position: relative; padding-left: 20px; border-left: 3px dashed #cbd5e1; }
+    .timeline-item::before {
+        content: ''; position: absolute; left: -8px; top: 5px;
+        width: 13px; height: 13px; border-radius: 50%;
+        background: var(--accent-orange); border: 3px solid white;
+    }
+    .time-badge {
+        display: inline-block; padding: 4px 12px; border-radius: 20px;
+        background: rgba(13, 148, 136, 0.1); color: var(--vibrant-teal);
+        font-size: 12px; font-weight: 700; margin-bottom: 10px;
+    }
+    .timeline-item h3 { font-size: 18px; font-weight: 800; color: var(--primary-green); }
+    .timeline-item h4 { font-size: 14px; font-weight: 600; color: var(--text-dark); margin: 3px 0 10px; }
+    .timeline-item ul { margin-left: 15px; margin-bottom: 15px; }
+    .timeline-item ul li { font-size: 14px; color: var(--text-gray); margin-bottom: 6px; }
+
+    /* VÙNG CHỨA ẢNH MINH CHỨNG */
+    .project-proofs, .activity-proofs {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 10px;
+    }
+    .activity-proofs { grid-template-columns: repeat(2, 1fr); margin-left: 55px; }
+    
+    .proof-box {
+        position: relative; border-radius: 14px; overflow: hidden;
+        aspect-ratio: 16/10; background: #e2e8f0; border: 1px solid #e2e8f0;
+        cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+    .proof-box img {
+        width: 100%; height: 100%; object-fit: cover;
+        transition: var(--transition-smooth);
+    }
+    .proof-box:hover img { transform: scale(1.08); }
+    .proof-label {
+        position: absolute; bottom: 0; width: 100%; background: rgba(10, 92, 71, 0.85);
+        color: white; font-size: 10px; text-align: center; padding: 4px 2px;
+        font-weight: 600; backdrop-filter: blur(2px);
+    }
+
+    /* Kỹ năng */
+    .skills-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    .skill-bar-wrapper { margin-bottom: 5px; }
+    .skill-info { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .skill-info span:first-child { color: var(--text-dark); }
+    .skill-info span:last-child { color: var(--accent-orange); }
+    .bar-bg { height: 12px; background: #e2e8f0; border-radius: 20px; overflow: hidden; }
+    .bar-fill {
+        height: 100%; border-radius: 20px;
+        background: linear-gradient(90deg, var(--primary-green), var(--vibrant-teal));
+        transition: width 1.5s ease-in-out;
+    }
+
+    /* Hệ thống các Tag kỹ năng bổ sung */
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; border-top: 1px solid #f1f5f9; padding-top: 20px; }
+    .tag {
+        background: #f1f5f9; color: var(--text-dark); font-size: 12px;
+        padding: 6px 14px; border-radius: 20px; font-weight: 500;
+        border: 1px solid #e2e8f0; transition: var(--transition-smooth);
+    }
+    .tag:hover { background: var(--vibrant-teal); color: white; border-color: var(--vibrant-teal); }
+
+    /* Liên hệ */
+    .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    @media (max-width: 600px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-btn {
+        display: flex; align-items: center; gap: 12px; padding: 16px;
+        background: #f8fafc; border-radius: 16px; border: 1px solid #e2e8f0;
+        color: var(--text-dark); font-weight: 600; font-size: 13px;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);
+    }
+    .contact-btn:hover {
+        background: white; border-color: var(--accent-orange);
+        box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.1);
+        transform: translateY(-2px);
+    }
+    .contact-icon { font-size: 22px; }
+
+    /* Footer */
+    footer {
+        background: var(--primary-green); color: rgba(255,255,255,0.8);
+        text-align: center; padding: 30px; font-size: 13px; margin-top: 50px;
+    }
+    footer span { color: var(--accent-orange); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Đoàn Minh Đức<span>.</span></div>
+    <nav>
+        <a href="#about">Giới thiệu</a>
+        <a href="#exp">Kinh nghiệm</a>
+        <a href="#skills">Kỹ năng</a>
+        <a href="#contact">Liên hệ</a>
+    </nav>
+</header>
+
+<div class="portfolio-container">
+    
+    <!-- ================= CỘT TRÁI (COLUMN LEFT) ================= -->
+    <div class="column-left">
+        
+        <!-- Hero Card -->
+        <div class="card hero-card" id="about">
+            <div class="avatar-container">
+                <img src="./Thêm tiêu đề.jpg" alt="Đoàn Minh Đức">
+            </div>
+            <h1>Đoàn Minh Đức</h1>
+            <h3>E-commerce Operation Specialist</h3>
+            <p style="font-size: 14px; color: var(--text-gray); margin-bottom: 20px;">
+                Sinh viên Thương mại điện tử trường Đại học Kinh tế Quốc dân (NEU). Với tinh thần cầu tiến và tư duy thực chiến, tôi tập trung phát triển kỹ năng vận hành gian hàng số, tối ưu hóa quảng cáo nội sàn và đưa ra quyết định dựa trên dữ liệu.
+            </p>
+            <div class="btn-group">
+                <a href="./CV Đoàn Minh Đức.pdf" download class="btn btn-primary">Tải CV PDF</a>
+                <a href="#contact" class="btn btn-secondary">Kết nối ngay</a>
+            </div>
+        </div>
+
+        <!-- Dashboard Stats 2x2 -->
+        <div class="stats-dashboard">
+            <div class="stat-box stat-gpa">
+                <div class="stat-icon">🎓</div>
+                <p>GPA NEU</p>
+                <div class="stat-value" data-target="3.88">0</div>
+            </div>
+            <div class="stat-box stat-shop">
+                <div class="stat-icon">🛒</div>
+                <p>Shop Vận Hành</p>
+                <div class="stat-value" data-target="4">0</div>
+            </div>
+            <div class="stat-box stat-revenue">
+                <div class="stat-icon">📈</div>
+                <p>Kỷ Lục Doanh Thu</p>
+                <div class="stat-value" data-target="1.1" data-suffix="B/th">0</div>
+            </div>
+            <div class="stat-box stat-roas">
+                <div class="stat-icon">🔥</div>
+                <p>ROAS Tối Đa</p>
+                <div class="stat-value" data-target="12" data-suffix="x">0</div>
+            </div>
+        </div>
+
+        <!-- Mục tiêu nghề nghiệp -->
+        <div class="card objective-card">
+            <h2 class="section-title">🎯 Mục tiêu nghề nghiệp</h2>
+            <div class="objective-list">
+                <h4>Mục tiêu ngắn hạn:</h4>
+                <ul>
+                    <li>Tích lũy kiến thức, kĩ năng thực chiến tại môi trường làm việc chuyên nghiệp.</li>
+                    <li>Thành thạo kĩ năng vận hành shop trên các sàn TMĐT lớn (Shopee, Tiktok Shop, Facebook).</li>
+                    <li>Mở rộng mạng lưới networking chất lượng và gia tăng thu nhập cá nhân.</li>
+                </ul>
+                <h4>Mục tiêu dài hạn:</h4>
+                <ul>
+                    <li>Trở thành chuyên viên vận hành sàn và hướng tới vị trí Leader Total E-commerce trong 3 năm tới.</li>
+                    <li>Gắn bó lâu dài, đóng góp giá trị thực tiễn và thăng tiến cùng doanh nghiệp.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Hoạt động & Giải thưởng -->
+        <div class="card activities-card">
+            <h2 class="section-title">🏆 Hoạt động & Giải thưởng</h2>
+            <div style="margin-top: 25px; display: flex; flex-direction: column; gap: 20px;">
+                
+                <!-- Giải Nhất DBC -->
+                <div class="activity-block">
+                    <div class="activity-item">
+                        <div class="activity-badge">🏆</div>
+                        <div class="activity-info">
+                            <h4>Giải Nhất Digital Marketing</h4>
+                            <p>Cuộc thi DBC (Sinh viên Kinh doanh số) do VECOM tổ chức</p>
+                        </div>
+                    </div>
+                    <div class="activity-proofs">
+                        <div class="proof-box">
+                            <img src="proofs/dbc-marketing-cer.jpg" alt="Chứng nhận Giải Nhất Digital Marketing">
+                            <div class="proof-label">Giấy chứng nhận</div>
+                        </div>
+                        <div class="proof-box">
+                            <img src="./32aa568a-e32d-4d10-b458-5f3e169ecc1f.png" alt="Ảnh nhận giải hoặc ảnh đội nhóm">
+                            <div class="proof-label">Ảnh nhận giải</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Giải Khuyến Khích DBC -->
+                <div class="activity-block">
+                    <div class="activity-item">
+                        <div class="activity-badge">🎖️</div>
+                        <div class="activity-info">
+                            <h4>Giải Khuyến khích Chung kết Tổng</h4>
+                            <p>Cuộc thi Quốc gia DBC (Sinh viên Kinh doanh số)</p>
+                        </div>
+                    </div>
+                    <div class="activity-proofs">
+                        <div class="proof-box">
+                            <img src="proofs/dbc-final-cer.jpg" alt="Chứng nhận Khuyến khích Chung kết Tổng">
+                            <div class="proof-label">Giấy chứng nhận</div>
+                        </div>
+                        <div class="proof-box">
+                            <img src="./c1d8261f-f060-4be2-935e-2d20e4cc2e32.png" alt="Ảnh sân khấu chung kết tổng">
+                            <div class="proof-label">Đêm Chung kết</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suất thực tập Econect -->
+                <div class="activity-block">
+                    <div class="activity-item">
+                        <div class="activity-badge">💼</div>
+                        <div class="activity-info">
+                            <h4>Suất thực tập Econect</h4>
+                            <p>Đạt được tại cuộc thi do CLB Thương mại điện tử ECC - NEU tổ chức</p>
+                        </div>
+                    </div>
+                    <div class="activity-proofs">
+                        <div class="proof-box">
+                            <img src="./Ảnh mail.png" alt="Chứng nhận thực tập Econect">
+                            <div class="proof-label">Chứng nhận thực tập</div>
+                        </div>
+                        <div class="proof-box">
+                            <img src="proofs/econect-moments.jpg" alt="Ảnh hoạt động cuộc thi Econect">
+                            <div class="proof-label">Khoảnh khắc cuộc thi</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div> <!-- End Column Left -->
+
+
+    <!-- ================= CỘT PHẢI (COLUMN RIGHT) ================= -->
+    <div class="column-right" id="exp">
+        
+        <!-- Kinh nghiệm thực chiến -->
+        <div class="card">
+            <h2 class="section-title">💼 Kinh nghiệm làm việc</h2>
+            <div class="timeline" style="margin-top: 25px;">
+                
+                <!-- Dự án Inception -->
+                <div class="timeline-item">
+                    <span class="time-badge">Tháng 1/2026 - 5/2026</span>
+                    <h3>Vận hành Shopee</h3>
+                    <h4>Agency Inception</h4>
+                    <ul>
+                        <li>Nghiên cứu thị trường sâu, phân tích đối thủ cạnh tranh và insight khách hàng để lập kế hoạch pitching thành công đối tác.</li>
+                        <li>Trực tiếp tính toán P&L dự án, tối ưu ngân sách quảng cáo và báo cáo tiến độ trực tiếp.</li>
+                        <li>Vận hành trực tiếp hệ thống 4 shop thuộc đa dạng ngành hàng: gia dụng, đồ ăn vặt, đồ lót bà bầu.</li>
+                        <li><strong>Dự án tiêu biểu:</strong> Đưa Hanoisilk Mall đạt mốc doanh số <strong>1,1 tỷ VNĐ/tháng</strong> với tỷ lệ chi phí quảng cáo (Ads) giữ ở mức tối ưu 14.5%.</li>
+                    </ul>
+                    
+                    <div class="project-proofs">
+                        <div class="proof-box">
+                            <img src="./Ảnh doanh thu.png" alt="Báo cáo doanh thu HanoiSilk">
+                            <div class="proof-label">Doanh thu</div>
+                        </div>
+                        <div class="proof-box">
+                            <img src="./Ảnh ads.png" alt="Chỉ số Shopee Ads Inception">
+                            <div class="proof-label">Shopee Ads</div>
+                        </div>
+                        <div class="proof-box">
+                            <img src="./NCTT.png" alt="Plan Pitching Khách hàng">
+                            <div class="proof-label">Pitching Plan</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dự án 3BMart -->
+                <div class="timeline-item">
+                    <span class="time-badge">Tháng 2/2025 - 8/2025</span>
+                    <h3>Vận hành Inhouse Sàn Shopee</h3>
+                    <h4>3BMart Việt Nam</h4>
+                    <ul>
+                        <li>Làm quen sâu với hệ thống Shopee: thực hành thiết kế ảnh bìa sản phẩm, banner gian hàng và kịch bản seeding đơn.</li>
+                        <li>Trực tiếp thiết lập chiến dịch, tối ưu công cụ Shopee Ads và tham gia vận hành các chương trình khuyến mãi lớn của sàn.</li>
+                        <li><strong>Dự án tiêu biểu:</strong> Tự build hoàn toàn shop mới ngành hàng gia dụng, cán mốc doanh số <strong>20 triệu VNĐ ngay tháng đầu tiên</strong> với tỷ số <strong>ROAS ấn tượng = 12</strong>.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Kỹ năng chuyên ngành -->
+        <div class="card" id="skills">
+            <h2 class="section-title">⚡ Kỹ năng chuyên môn</h2>
+            <div class="skills-grid" style="margin-top: 25px;">
+                
+                <!-- Skill 1 -->
+                <div class="skill-bar-wrapper">
+                    <div class="skill-info">
+                        <span>Shopee Operation & Marketing</span>
+                        <span>95%</span>
+                    </div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 95%;"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 2 -->
+                <div class="skill-bar-wrapper">
+                    <div class="skill-info">
+                        <span>Thiết kế & Edit video (Canva, CapCut)</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 90%;"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 3 -->
+                <div class="skill-bar-wrapper">
+                    <div class="skill-info">
+                        <span>Ứng dụng AI vào vận hành TMĐT</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 90%;"></div>
+                    </div>
+                </div>
+
+                <!-- Skill 4 -->
+                <div class="skill-bar-wrapper">
+                    <div class="skill-info">
+                        <span>Phân tích tài chính P&L & Lập kế hoạch</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 85%;"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="skill-tags">
+                <span class="tag">Xây kênh One-short Affiliate</span>
+                <span class="tag">Làm việc với KAM sàn</span>
+                <span class="tag">Nghiên cứu thị trường & Phân tích đối thủ</span>
+                <span class="tag">Quản lý kho vận & Kết nối liên bộ phận</span>
+                <span class="tag">Làm việc nhóm</span>
+                <span class="tag">Chí cầu tiến & Học hỏi nhanh</span>
+            </div>
+        </div>
+
+        <!-- Thông tin liên hệ trực quan -->
+        <div class="card" id="contact">
+            <h2 class="section-title">📞 Thông tin liên hệ</h2>
+            <p style="font-size: 14px; color: var(--text-gray); margin: 10px 0 20px;">Đừng ngần ngại kết nối với tôi để thảo luận về các cơ hội hợp tác và dự án TMĐT bùng nổ!</p>
+            <div class="contact-grid">
+                <a href="tel:0344108256" class="contact-btn">
+                    <span class="contact-icon">📞</span>
+                    <div>
+                        <div style="font-size:11px; color:var(--text-gray);">Gọi trực tiếp</div>
+                        <div>0344 108 256</div>
+                    </div>
+                </a>
+                <a href="mailto:duc.doanminh0606@gmail.com" class="contact-btn">
+                    <span class="contact-icon">📧</span>
+                    <div>
+                        <div style="font-size:11px; color:var(--text-gray);">Gửi Email</div>
+                        <span style="font-size: 11px;">duc.doanminh0606@gmail.com</span>
+                    </div>
+                </a>
+                <a href="https://minhduc06.id.vn" target="_blank" class="contact-btn">
+                    <span class="contact-icon">🌐</span>
+                    <div>
+                        <div style="font-size:11px; color:var(--text-gray);">Website</div>
+                        <div>minhduc06.id.vn</div>
+                    </div>
+                </a>
+                <a href="https://facebook.com/oanminhuc.485235" target="_blank" class="contact-btn">
+                    <span class="contact-icon">👥</span>
+                    <div>
+                        <div style="font-size:11px; color:var(--text-gray);">Facebook</div>
+                        <div>Đoàn Minh Đức</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div> <!-- End Column Right -->
+
+</div> <!-- End Container -->
+
+<footer>
+    © 2026 <span>Đoàn Minh Đức</span> 
+</footer>
+
+<!-- Hiệu ứng Số chạy mượt mà khi cuộn tới -->
+<script>
+const counters = document.querySelectorAll(".stat-value");
+const speed = 80;
+
+const startCounter = (counter) => {
+    const target = parseFloat(counter.dataset.target);
+    const suffix = counter.dataset.suffix || "";
+    let count = 0;
+    const increment = target / speed;
+
+    const updateCount = () => {
+        count += increment;
+        if (count >= target) {
+            counter.innerText = target + suffix;
+        } else {
+            counter.innerText = (target % 1 !== 0 ? count.toFixed(2) : Math.floor(count)) + suffix;
+            requestAnimationFrame(updateCount);
+        }
+    };
+    updateCount();
+};
+
+const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            startCounter(entry.target);
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+counters.forEach(counter => observer.observe(counter));
+</script>
+
+</body>
+</html>
